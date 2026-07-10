@@ -3,6 +3,7 @@ from passlib.context import CryptContext
 import jwt
 from datetime import datetime, timedelta
 import os
+from app.config import settings
 from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
 from sqlalchemy.orm import Session
@@ -15,8 +16,8 @@ from passlib.handlers.bcrypt import bcrypt as _bcrypt
 _bcrypt.backends = ["bcrypt"] 
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
-SECRET_KEY = os.getenv("JWT_SECRET", "smarterp_super_secret_development_cryptographic_key_2026")
-ALGORITHM = "HS256"
+SECRET_KEY = settings.JWT_SECRET
+ALGORITHM = settings.ALGORITHM
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="auth/login")
 
