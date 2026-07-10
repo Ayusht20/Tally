@@ -1,8 +1,8 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.database import engine, Base, SessionLocal
-from app.models.company import Company  # <-- Ensure this is imported
-from app.routes import auth, ledgers, stock, vouchers
+from app.models.company import Company 
+from app.routes import auth, ledgers, stock, vouchers ,units
 
 # 1. Automatic Cloud Schema Migration
 Base.metadata.create_all(bind=engine)
@@ -45,6 +45,7 @@ from app.routes import reports
 app.include_router(reports.router)
 from app.routes import accounting
 app.include_router(accounting.router)
+app.include_router(units.router)
 
 @app.get("/")
 def health_check():
