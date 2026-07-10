@@ -3,7 +3,7 @@ fastapi
 sqlalchemy
 pydantic
 psycopg2-binary
-python-dote
+python-dotenv
 passlib[bcrypt]
 bcrypt
 pyjwt

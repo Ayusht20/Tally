@@ -2,7 +2,6 @@ import logging
 from passlib.context import CryptContext
 import jwt
 from datetime import datetime, timedelta
-import os
 from app.config import settings
 from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer

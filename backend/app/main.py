@@ -13,7 +13,7 @@ app = FastAPI(title="SmartERP Cloud Engine", version="1.3.0")
 # --- CORS MIDDLEWARE ALLOWANCES ---
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=["https://tally-gold-ten.vercel.app"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
