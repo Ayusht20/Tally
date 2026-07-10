@@ -1,0 +1,21 @@
+# Cache & System Files
+.DS_Store
+Thumbs.db
+
+# Frontend Dependencies & Build Outputs (Next.js)
+/frontend/node_modules/
+/frontend/.next/
+/frontend/out/
+/frontend/build/
+/frontend/.env*.local
+
+# Backend Dependencies & Environments (Python)
+/backend/tvenv/
+/backend/__pycache__/
+/backend/*.pyc
+/backend/.env
+/backend/.pytest_cache/
+
+# IDE Configuration Files
+.vscode/
+.idea/
