@@ -42,6 +42,12 @@ def post_accounting_voucher(company_id: int, voucher: VoucherCreateSchema, db: S
         if vch_type == "PURCHASE" and grp_type != "SUPPLIER":
             raise HTTPException(status_code=400, detail="Invoicing Fault: Supplier ledger required for Purchases.")
 
+    # 🔄 FIX 1: Aggregate multiple identical items first to prevent snapshot exploit
+    aggregated_quantities = {}
+    for item in voucher.items:
+        qty = int(item.quantity) # Explicitly cast to integer to prevent type tricks
+        aggregated_quantities[item.stock_item_id] = aggregated_quantities.get(item.stock_item_id, 0) + qty
+
     base_taxable_value = Decimal("0.00")
 
     for item in voucher.items:
@@ -49,6 +55,15 @@ def post_accounting_voucher(company_id: int, voucher: VoucherCreateSchema, db: S
         if not stock_item:
             raise HTTPException(status_code=404, detail=f"Stock item reference missing for ID {item.stock_item_id}")
         
+        # 🚨 FIX 2: Validate using total aggregate demand instead of single lines
+        if vch_type == "SALES":
+            total_requested = aggregated_quantities[item.stock_item_id]
+            if stock_item.current_qty < total_requested:
+                raise HTTPException(
+                    status_code=400, 
+                    detail=f"Stock Out: Total transaction demands {total_requested} units of '{stock_item.name}', but only {stock_item.current_qty} units are available."
+                )
+
         base_rate = Decimal(str(stock_item.selling_price if vch_type == "SALES" else stock_item.purchase_price))
         discount_amount = base_rate * (Decimal(str(item.discount_percentage)) / Decimal("100.00"))
         final_rate = base_rate - discount_amount
@@ -56,8 +71,6 @@ def post_accounting_voucher(company_id: int, voucher: VoucherCreateSchema, db: S
         base_taxable_value += Decimal(str(item.quantity)) * final_rate
 
         if vch_type == "SALES":
-            if stock_item.current_qty < item.quantity:
-                raise HTTPException(status_code=400, detail=f"Stock Out: Only {stock_item.current_qty} units available.")
             stock_item.current_qty -= item.quantity
         elif vch_type == "PURCHASE":
             stock_item.current_qty += item.quantity
