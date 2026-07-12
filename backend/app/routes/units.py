@@ -8,7 +8,7 @@ from app.models.user import User
 
 from app.models.accounting import Unit 
 
-router = APIRouter(prefix="/companies/{company_id}/units", tags=["Unit of Measure Master"])
+router = APIRouter(prefix="/companies/{company_id}/accounting/units", tags=["Unit of Measure Master"])
 
 class UnitSchema(BaseModel):
     name: str          # e.g., "Pieces"
