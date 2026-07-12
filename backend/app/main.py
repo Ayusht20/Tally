@@ -8,12 +8,17 @@ from app.routes import auth, ledgers, stock, vouchers ,units
 Base.metadata.create_all(bind=engine)
 
 # 2. Initialize FastAPI Core Engine
-app = FastAPI(title="SmartERP Cloud Engine", version="1.3.0")
+app = FastAPI(title="SmartERP Cloud Engine")
 
+origins = [
+    "https://tally-gold-ten.vercel.app",
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+]
 # --- CORS MIDDLEWARE ALLOWANCES ---
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://tally-gold-ten.vercel.app"],
+    allow_origins=origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
