@@ -1,10 +1,9 @@
-uvicorn
 fastapi
+uvicorn
 sqlalchemy
 pydantic
 psycopg2-binary
 python-dotenv
-passlib[bcrypt]
 bcrypt
 pyjwt
 email-validator
