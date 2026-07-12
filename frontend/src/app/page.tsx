@@ -55,8 +55,8 @@ export default function GatewayOfSmartERP() {
   }, [focusIndex, router]);
 
   return (
-    <div className="flex min-h-screen bg-slate-950 text-slate-100 font-sans p-12 select-none cursor-none antialiased justify-center items-center">
-      <div className="w-full max-w-xl border border-slate-800 bg-slate-900/40 backdrop-blur-md p-6 rounded-xl shadow-2xl">
+    <div className="flex min-h-screen bg-slate-950 text-slate-100 font-sans p-12 select-none cursor-none terminal-mode antialiased justify-center items-center">
+      <div className="w-full max-w-xl border border-slate-800 bg-slate-900/40 backdrop-blur-md p-6 rounded-xl shadow-2xl terminal-mode">
         
         {/* Header Section */}
         <header className="border-b border-slate-800 pb-3 mb-6 flex justify-between items-center font-mono">
