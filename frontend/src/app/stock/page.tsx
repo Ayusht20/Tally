@@ -48,7 +48,7 @@ export default function StockMasterConsole() {
       const sRes = await secureFetch(`https://tally-lhy7.onrender.com/companies/${COMPANY_ID}/stock`);
       if (sRes.ok) setItems(await sRes.json());
       
-      const uRes = await secureFetch(`https://tally-lhy7.onrender.com/companies/${COMPANY_ID}/units`);
+      const uRes = await secureFetch(`https://tally-lhy7.onrender.com/companies/${COMPANY_ID}/accounting/units`);
       if (uRes.ok) setUnits(await uRes.json());
     } catch (err: any) {
       setMessage(`Warehouse Link Failure: ${err.message}`);
