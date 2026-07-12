@@ -1,6 +1,6 @@
 import logging
-from passlib.context import CryptContext
 import jwt
+import bcrypt  
 from datetime import datetime, timedelta
 from app.config import settings
 from fastapi import Depends, HTTPException, status
@@ -9,22 +9,26 @@ from sqlalchemy.orm import Session
 from app.database import get_db
 from app.models.user import User
 
-# Passlib / Bcrypt 4.0.1 Patch
-logging.getLogger("passlib").setLevel(logging.ERROR)
-from passlib.handlers.bcrypt import bcrypt as _bcrypt
-_bcrypt.backends = ["bcrypt"] 
-
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 SECRET_KEY = settings.JWT_SECRET
 ALGORITHM = settings.ALGORITHM
 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="auth/login")
 
 def get_password_hash(password: str) -> str:
-    return pwd_context.hash(password)
+    """Encodes text to bytes, generates a secure salt, and returns decoded string"""
+    salt = bcrypt.gensalt()
+    hashed = bcrypt.hashpw(password.encode('utf-8'), salt)
+    return hashed.decode('utf-8')
 
 def verify_password(plain_password: str, hashed_password: str) -> bool:
-    return pwd_context.verify(plain_password, hashed_password)
+    """Securely checks if the plain text matches the stored database hash"""
+    try:
+        return bcrypt.checkpw(
+            plain_password.encode('utf-8'), 
+            hashed_password.encode('utf-8')
+        )
+    except Exception:
+        return False
 
 def create_access_token(data: dict, expires_delta: timedelta = None) -> str:
     to_encode = data.copy()
