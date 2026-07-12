@@ -46,10 +46,10 @@ export default function UnifiedVoucherConsole() {
     document.body.style.setProperty('cursor', 'none', 'important');
     const fetchCoreData = async () => {
       try {
-        const lRes = await secureFetch(`http://127.0.0.1:8000/companies/${COMPANY_ID}/ledgers`);
+        const lRes = await secureFetch(`https://tally-lhy7.onrender.com/companies/${COMPANY_ID}/ledgers`);
         if (lRes.ok) setLedgers(await lRes.json());
         
-        const sRes = await secureFetch(`http://127.0.0.1:8000/companies/${COMPANY_ID}/stock`);
+        const sRes = await secureFetch(`https://tally-lhy7.onrender.com/companies/${COMPANY_ID}/stock`);
         if (sRes.ok) setStockItems(await sRes.json());
       } catch (err: any) {
         setMessage(`Data Link Failure: ${err.message}`);
@@ -73,7 +73,7 @@ export default function UnifiedVoucherConsole() {
       if (e.altKey && e.key.toLowerCase() === 'd') {
         e.preventDefault();
         if (lastSavedId) {
-          window.open(`http://127.0.0.1:8000/companies/${COMPANY_ID}/accounting/vouchers/${lastSavedId}/download`, '_blank');
+          window.open(`https://tally-lhy7.onrender.com/companies/${COMPANY_ID}/accounting/vouchers/${lastSavedId}/download`, '_blank');
         } else {
           setIsError(true);
           setMessage("No active voucher record generated to print.");
@@ -160,7 +160,7 @@ export default function UnifiedVoucherConsole() {
     }
 
     try {
-      const res = await secureFetch(`http://127.0.0.1:8000/companies/${COMPANY_ID}/accounting/vouchers`, {
+      const res = await secureFetch(`https://tally-lhy7.onrender.com/companies/${COMPANY_ID}/accounting/vouchers`, {
         method: 'POST',
         body: JSON.stringify(bodyPayload)
       });

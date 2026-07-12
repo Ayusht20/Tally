@@ -33,7 +33,7 @@ export default function OutstandingStatements() {
   useEffect(() => {
     const fetchOutstandingMatrix = async () => {
       try {
-        const res = await secureFetch(`http://127.0.0.1:8000/companies/${companyId}/finance-reports/outstandings`);
+        const res = await secureFetch(`https://tally-lhy7.onrender.com/companies/${companyId}/finance-reports/outstandings`);
         if (res.ok) {
           const data = await res.json();
           setPayables(data.outstanding_payables);

@@ -52,7 +52,7 @@ export default function DaybookReports() {
   useEffect(() => {
     const fetchReports = async () => {
       try {
-        const res = await secureFetch(`http://127.0.0.1:8000/companies/${companyId}/vouchers/`);
+        const res = await secureFetch(`https://tally-lhy7.onrender.com/companies/${companyId}/vouchers/`);
         if (res.ok) {
           const data = await res.json();
           setVouchers(data.vouchers || []);
@@ -73,7 +73,7 @@ export default function DaybookReports() {
     try {
       const token = typeof window !== 'undefined' ? localStorage.getItem('access_token') : null;
       
-      const response = await fetch(`http://127.0.0.1:8000/companies/${companyId}/accounting/export/pdf`, {
+      const response = await fetch(`https://tally-lhy7.onrender.com/companies/${companyId}/accounting/export/pdf`, {
         method: 'GET',
         headers: {
           ...(token ? { 'Authorization': `Bearer ${token}` } : {})

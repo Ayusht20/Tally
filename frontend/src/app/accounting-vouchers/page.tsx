@@ -22,7 +22,7 @@ export default function AdvancedAccountingVouchers() {
 
   useEffect(() => {
     const fetchLedgerDropdowns = async () => {
-      const res = await secureFetch(`http://127.0.0.1:8000/companies/${COMPANY_ID}/ledgers/`);
+      const res = await secureFetch(`https://tally-lhy7.onrender.com/companies/${COMPANY_ID}/ledgers/`);
       if (res.ok) setLedgers(await res.json());
     };
     fetchLedgerDropdowns();
@@ -63,7 +63,7 @@ export default function AdvancedAccountingVouchers() {
     e.preventDefault();
     setMessage('');
     try {
-      const res = await secureFetch(`http://127.0.0.1:8000/companies/${COMPANY_ID}/accounting/vouchers`, {
+      const res = await secureFetch(`https://tally-lhy7.onrender.com/companies/${COMPANY_ID}/accounting/vouchers`, {
         method: 'POST',
         body: JSON.stringify({
           voucher_type: vType,

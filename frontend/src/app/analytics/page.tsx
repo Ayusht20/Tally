@@ -31,8 +31,8 @@ export default function AnalyticsDashboard() {
   useEffect(() => {
     const loadFinancialReports = async () => {
       try {
-        const tbRes = await secureFetch(`http://127.0.0.1:8000/companies/${companyId}/finance-reports/trial-balance`);
-        const plRes = await secureFetch(`http://127.0.0.1:8000/companies/${companyId}/finance-reports/profit-loss`);
+        const tbRes = await secureFetch(`https://tally-lhy7.onrender.com/companies/${companyId}/finance-reports/trial-balance`);
+        const plRes = await secureFetch(`https://tally-lhy7.onrender.com/companies/${companyId}/finance-reports/profit-loss`);
         if (tbRes.ok) setTrialData(await tbRes.json());
         if (plRes.ok) setPlData(await plRes.json());
       } catch (err: any) {

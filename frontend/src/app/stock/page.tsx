@@ -45,10 +45,10 @@ export default function StockMasterConsole() {
 
   const fetchInventoryState = async () => {
     try {
-      const sRes = await secureFetch(`http://127.0.0.1:8000/companies/${COMPANY_ID}/stock`);
+      const sRes = await secureFetch(`https://tally-lhy7.onrender.com/companies/${COMPANY_ID}/stock`);
       if (sRes.ok) setItems(await sRes.json());
       
-      const uRes = await secureFetch(`http://127.0.0.1:8000/companies/${COMPANY_ID}/units`);
+      const uRes = await secureFetch(`https://tally-lhy7.onrender.com/companies/${COMPANY_ID}/units`);
       if (uRes.ok) setUnits(await uRes.json());
     } catch (err: any) {
       setMessage(`Warehouse Link Failure: ${err.message}`);
@@ -94,7 +94,7 @@ export default function StockMasterConsole() {
     setIsError(false);
 
     try {
-      const res = await secureFetch(`http://127.0.0.1:8000/companies/${COMPANY_ID}/stock`, {
+      const res = await secureFetch(`https://tally-lhy7.onrender.com/companies/${COMPANY_ID}/stock`, {
         method: 'POST',
         body: JSON.stringify({
           name: name.toUpperCase(),

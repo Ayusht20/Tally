@@ -16,7 +16,7 @@ export default function UnitMasterConfiguration() {
   const inputsRef = useRef<{ [key: string]: HTMLInputElement | null }>({});
 
   const reloadUnitsList = async () => {
-    const res = await secureFetch(`http://127.0.0.1:8000/companies/${COMPANY_ID}/accounting/units`);
+    const res = await secureFetch(`https://tally-lhy7.onrender.com/companies/${COMPANY_ID}/accounting/units`);
     if (res.ok) setUnits(await res.json());
   };
 
@@ -41,7 +41,7 @@ export default function UnitMasterConfiguration() {
   const handleUnitSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const res = await secureFetch(`http://127.0.0.1:8000/companies/${COMPANY_ID}/accounting/units`, {
+      const res = await secureFetch(`https://tally-lhy7.onrender.com/companies/${COMPANY_ID}/accounting/units`, {
         method: 'POST',
         body: JSON.stringify({ symbol: sym, formal_name: formal })
       });

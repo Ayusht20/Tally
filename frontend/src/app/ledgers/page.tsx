@@ -36,7 +36,7 @@ export default function LedgerManagement() {
 
   const loadLedgers = async () => {
     try {
-      const res = await secureFetch(`http://127.0.0.1:8000/companies/${companyId}/ledgers/`);
+      const res = await secureFetch(`https://tally-lhy7.onrender.com/companies/${companyId}/ledgers/`);
       if (res.ok) setLedgers(await res.json());
     } catch (err: any) {
       setMessage(err.message);
@@ -49,7 +49,7 @@ export default function LedgerManagement() {
     e.preventDefault();
     setMessage('');
     try {
-      const res = await secureFetch(`http://127.0.0.1:8000/companies/${companyId}/ledgers/`, {
+      const res = await secureFetch(`https://tally-lhy7.onrender.com/companies/${companyId}/ledgers/`, {
         method: 'POST',
         body: JSON.stringify({
           name: name.toUpperCase(),
