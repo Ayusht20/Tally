@@ -30,7 +30,33 @@ The entire interface is built around high-speed hotkey navigation for lightning-
 
 ## Ledger
 ![Ledger](screenshots/ledger.png)
+
+## Inventory
+![Inventory](screenshots/inventory.png)
+
+## Inventory
+![Inventory](screenshots/inventory.png)
+
+## Voucher-Posting
+![Voucher-posting](screenshots/voucher-posting.png)
+
+## Reports!
+![Reports](screenshots/reports.png)
+
+## Reports!
+![Reports](screenshots/reports.png)
+
+## Financial-statements!
+![Reports](screenshots/financial-statements.png)
 ---
+## Financial-statements!
+![Reports](screenshots/financial-statements.png)
+
+## Outstandings!
+![Reports](screenshots/outstandings.png)
+
+## Units!
+![Units!](screenshots/units.png)
 # ⌨️ Keyboard Navigation
 
 ## A. Main Dashboard Hotkeys
