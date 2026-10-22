@@ -34,14 +34,8 @@ The entire interface is built around high-speed hotkey navigation for lightning-
 ## Inventory
 ![Inventory](screenshots/inventory.png)
 
-## Inventory
-![Inventory](screenshots/inventory.png)
-
 ## Voucher-Posting
 ![Voucher-posting](screenshots/voucher-posting.png)
-
-## Reports!
-![Reports](screenshots/reports.png)
 
 ## Reports!
 ![Reports](screenshots/reports.png)
