@@ -13,7 +13,6 @@ https://tally-gold-ten.vercel.app
 https://smart-erp-backend.onrender.com/docs
 
 ---
-
 # 📖 Introduction
 
 Most modern billing applications depend heavily on mouse interactions, which slows down operators handling hundreds of invoices every day.
@@ -25,7 +24,13 @@ The core workflow completely disables and hides the mouse cursor using custom CS
 The entire interface is built around high-speed hotkey navigation for lightning-fast accounting operations.
 
 ---
+# Screenshots
+## Dashboard
+![Dasboard](screenshots/dashboard.png)
 
+## Ledger
+![Ledger](screenshots/ledger.png)
+---
 # ⌨️ Keyboard Navigation
 
 ## A. Main Dashboard Hotkeys
