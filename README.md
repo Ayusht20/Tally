@@ -10,8 +10,8 @@ A production-ready full-stack accounting system inspired by the speed and workfl
 https://tally-gold-ten.vercel.app
 
 ### Backend API (Swagger Docs)
-https://smart-erp-backend.onrender.com/docs
 
+https://tally-lhy7.onrender.com
 ---
 # 📖 Introduction
 
