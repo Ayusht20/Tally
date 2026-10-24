@@ -9,6 +9,12 @@ from app.models.stock import StockItem
 from app.models.voucher import Voucher, VoucherLedgerEntry, VoucherItemLine
 from app.auth import get_current_user
 from app.models.user import User
+from io import BytesIO
+from fastapi.responses import StreamingResponse
+from reportlab.lib.pagesizes import A4
+from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Paragraph
+from reportlab.lib.styles import getSampleStyleSheet
+from reportlab.lib import colors
 
 router = APIRouter(prefix="/companies/{company_id}/accounting", tags=["Unified Voucher Engine"])
 
@@ -171,6 +177,44 @@ def post_unified_voucher(company_id: int, payload: MasterVoucherSchema, db: Sess
         
         db.commit()
         return {"status": "SUCCESS", "voucher_number": vch_number, "voucher_id": db_voucher.id}
+
+@router.get("/export/pdf")
+def export_statement_pdf(company_id: int, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
+    rows_db = (
+        db.query(Voucher, Ledger.name)
+        .outerjoin(Ledger, Ledger.id == Voucher.party_ledger_id)
+        .filter(Voucher.company_id == company_id)
+        .order_by(Voucher.created_at)
+        .all()
+    )
+
+    rows = [["Date", "Ref", "Type", "Party", "Mode", "CGST", "SGST", "Total"]]
+    for v, party in rows_db:
+        rows.append([
+            v.created_at.strftime("%Y-%m-%d") if v.created_at else "",
+            v.voucher_number, v.voucher_type, party or "",
+            v.payment_mode,
+            f"{float(v.cgst_amount or 0):.2f}",
+            f"{float(v.sgst_amount or 0):.2f}",
+            f"{float(v.total_amount or 0):.2f}",
+        ])
+
+    buf = BytesIO()
+    table = Table(rows, repeatRows=1)
+    table.setStyle(TableStyle([
+        ("BACKGROUND", (0, 0), (-1, 0), colors.lightgrey),
+        ("GRID", (0, 0), (-1, -1), 0.25, colors.grey),
+        ("FONTSIZE", (0, 0), (-1, -1), 8),
+        ("ALIGN", (5, 1), (-1, -1), "RIGHT"),
+    ]))
+    SimpleDocTemplate(buf, pagesize=A4).build(
+        [Paragraph("Daybook Statement", getSampleStyleSheet()["Title"]), table]
+    )
+    buf.seek(0)
+    return StreamingResponse(
+        buf, media_type="application/pdf",
+        headers={"Content-Disposition": f'attachment; filename="statement_{company_id}.pdf"'},
+    )
 
 @router.get("/vouchers/{voucher_id}/download")
 def download_voucher_receipt(company_id: int, voucher_id: int, db: Session = Depends(get_db)):
