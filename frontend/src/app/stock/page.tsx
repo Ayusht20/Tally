@@ -102,16 +102,19 @@ export default function StockMasterConsole() {
           hsn_code: hsnCode,
           purchase_price: parseFloat(purchasePrice),
           selling_price: parseFloat(sellingPrice),
-          opening_qty: parseInt(openingQty) || 0,
+          current_qty: parseInt(openingQty) || 0,
           unit_id: unitId ? intParse(unitId) : null
         })
       });
       
       const data = await res.json();
-      if (!res.ok) {
-        setIsError(true);
-        throw new Error(data.detail || "Profile integrity violation error.");
-      }
+if (!res.ok) {
+  setIsError(true);
+  const detail = Array.isArray(data.detail)
+    ? data.detail.map((d: any) => `${d.loc?.slice(-1)[0]}: ${d.msg}`).join(', ')
+    : data.detail;
+  throw new Error(detail || "Profile integrity violation error.");
+}
 
       setIsError(false);
       setMessage(`Success! Created Master Ledger Item asset: ${name.toUpperCase()}`);
