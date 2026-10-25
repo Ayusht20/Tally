@@ -39,3 +39,4 @@ def login_user(user_in: UserLogin, db: Session = Depends(get_db)):
     # If login is successful, generate a secure access token
     token = create_access_token(data={"sub": user.email, "user_id": user.id})
     return {"access_token": token, "token_type": "bearer"}
+
